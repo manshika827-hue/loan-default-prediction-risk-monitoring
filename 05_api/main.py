@@ -6,8 +6,7 @@ import os
 
 from dotenv import load_dotenv
 from sqlalchemy import create_engine, text
-from urllib.parse import quote_plus
-
+ 
 # -----------------------------
 # FastAPI Application
 # -----------------------------
@@ -23,16 +22,21 @@ app = FastAPI(
 # -----------------------------
 load_dotenv()
 
-password = os.getenv("POSTGRES_PASSWORD")
-encoded_password = quote_plus(password)
+DATABASE_URL = os.getenv("DATABASE_URL")
 
-DATABASE_URL = (
-    f"postgresql+psycopg://postgres:{encoded_password}"
-    "@localhost:1737/loan_prediction_db"
-)
+if not DATABASE_URL:
+    raise RuntimeError("DATABASE_URL environment variable is not set")
 
-engine = create_engine(DATABASE_URL)
+# Render provides postgresql://...
+# SQLAlchemy + psycopg uses postgresql+psycopg://
+if DATABASE_URL.startswith("postgresql://"):
+    DATABASE_URL = DATABASE_URL.replace(
+        "postgresql://",
+        "postgresql+psycopg://",
+        1
+    )
 
+engine = create_engine(DATABASE_URL))
 
 # -----------------------------
 # Load ML Model
