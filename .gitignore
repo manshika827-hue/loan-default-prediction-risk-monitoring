@@ -1,0 +1,26 @@
+# Virtual environment
+venv/
+
+# Environment variables
+.env
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Model files
+*.joblib
+
+# Evidently generated reports
+08_monitoring/data_drift_report.html
+
+# Streamlit
+.streamlit/
+
+# VS Code
+.vscode/
+# Dataset
+01_data/Loan_default.csv
