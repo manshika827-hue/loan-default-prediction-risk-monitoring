@@ -36,7 +36,7 @@ if DATABASE_URL.startswith("postgresql://"):
         1
     )
 
-engine = create_engine(DATABASE_URL))
+engine = create_engine(DATABASE_URL)
 
 # -----------------------------
 # Load ML Model
